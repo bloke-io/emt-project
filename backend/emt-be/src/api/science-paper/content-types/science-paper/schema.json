@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "science_papers",
+  "info": {
+    "singularName": "science-paper",
+    "pluralName": "science-papers",
+    "displayName": "Science Paper"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "reviewEndDate": {
+      "type": "date",
+      "required": true
+    },
+    "PaperPDF": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "reviewers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "science_papers"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "science_paper"
+    }
+  }
+}
