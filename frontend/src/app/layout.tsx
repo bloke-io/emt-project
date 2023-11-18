@@ -1,13 +1,10 @@
+'use client'
+
+import { AuthenticationProvider } from '@/providers/AuthProvider'
 import './globals.css'
-import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'EMT Project',
-  description: 'EMT Project 22/23',
-}
 
 export default function RootLayout({
   children,
@@ -16,12 +13,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <AuthenticationProvider>
       <body className={inter.className}>
         <div className="h-12 flex justify-center items-center">
           <header className="text-lg text-gray-800">Paper Review EMT Project</header>
         </div>
         {children}
         </body>
+        </AuthenticationProvider>
     </html>
   )
 }
