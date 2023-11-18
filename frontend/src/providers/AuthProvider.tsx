@@ -1,39 +1,36 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useMemo } from "react";
+
+type LoginDetails = {
+  userId: string;
+  password: string;
+};
 
 type AuthContextType = {
-  login: ({
-    userId,
-    password,
-  }: {
-    userId: string;
-    password: string;
-  }) => Promise<void>;
+  login: (loginDetails: LoginDetails) => Promise<void>;
   logout: () => void;
 };
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthenticationProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
+  const login = async (loginDetails: LoginDetails) => {
+    console.log("implement login", loginDetails);
+  };
 
-    const login = async ({ userId, password }: { userId: string; password: string }) => {
-        console.log('implement login');
-    }
-
-    const logout = () => {
-        console.log("implement logout");
-    }
-
+  const logout = () => {
+    console.log("implement logout");
+  };
 
   const memoizedValue = useMemo(
     () => ({
       login,
       logout,
     }),
-    [],
+    []
   );
 
   return (
@@ -41,14 +38,4 @@ export const AuthenticationProvider = ({
       {children}
     </AuthContext.Provider>
   );
-};
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthenticationProvider");
-  }
-
-  return context;
 };
