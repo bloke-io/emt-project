@@ -3,14 +3,14 @@ import { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
-}
+};
 
-const AppShell = ({ children }: Props) => {
+const MainContentBox = ({ children }: Props) => {
   return (
-    <Box display="flex" height="100vh" flexDirection="column" flex={1}>
+    <Box height="calc(100% - 72px)" width="full">
       {children}
     </Box>
   );
 };
 
-export default AppShell;
+export default MainContentBox;

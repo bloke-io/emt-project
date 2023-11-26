@@ -1,12 +1,22 @@
-import { createContext, useMemo } from "react";
+import axios from "axios";
+import { createContext, useEffect, useMemo, useState } from "react";
+import { RoutePath, apiRoutes } from "../constants";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type LoginDetails = {
   userId: string;
   password: string;
 };
 
+type UserDetails = {
+  username: string;
+  email: string;
+  jwt: string;
+};
+
 type AuthContextType = {
-  login: (loginDetails: LoginDetails) => Promise<void>;
+  user: UserDetails | null;
+  login: (loginDetails: LoginDetails) => Promise<boolean>;
   logout: () => void;
 };
 
@@ -17,8 +27,35 @@ export const AuthenticationProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [user, setUser] = useState<UserDetails | null>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!user) {
+      navigate(RoutePath.Login);
+    }
+  }, [location.pathname])
+
   const login = async (loginDetails: LoginDetails) => {
-    console.log("implement login", loginDetails);
+    const request = await axios.post(apiRoutes.login, {
+      userId: loginDetails.userId,
+      password: loginDetails.password,
+    });
+
+    if (request.status === 200) {
+      const jwt = request.data.jwt;
+      const user = request.data.user;
+      setUser({
+        username: user.username,
+        email: user.email,
+        jwt: jwt,
+      });
+
+      return true;
+    } else {
+      throw new Error("Login failed- implement error handling");
+    }
   };
 
   const logout = () => {
@@ -27,10 +64,11 @@ export const AuthenticationProvider = ({
 
   const memoizedValue = useMemo(
     () => ({
+      user,
       login,
       logout,
     }),
-    []
+    [user]
   );
 
   return (
