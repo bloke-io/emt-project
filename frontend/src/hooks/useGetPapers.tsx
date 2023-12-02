@@ -1,9 +1,10 @@
 import useSWR from "swr";
 import { apiRoutes } from "../constants";
 import axios from "axios";
+import { Paper } from "../types/Paper";
 
-const getPapers = (jwtToken: string, userId: number) => {
-  return axios.get(apiRoutes.papers, {
+const getPapers = async (jwtToken: string, userId: number): Promise<Paper[]> => {
+  const getPapersResponse = await axios.get(apiRoutes.papers, {
     headers: {
       Authorization: `Bearer ${jwtToken}`,
     },
@@ -13,6 +14,8 @@ const getPapers = (jwtToken: string, userId: number) => {
       populate: "*",
     },
   });
+
+  return getPapersResponse.data;
 };
 
 const useGetPapers = (jwtToken: string, userId: number) => {
