@@ -3,19 +3,16 @@ import { apiRoutes } from "../constants";
 import axios from "axios";
 import { Paper } from "../types/Paper";
 
+const getQueryParams = (userId: number) => `?filters[$or][0][author][id][$eq]=${userId}&filters[$or][1][reviewers][id][$eq]=${userId}&populate=*`
+
 const getPapers = async (jwtToken: string, userId: number): Promise<Paper[]> => {
-  const getPapersResponse = await axios.get(apiRoutes.papers, {
+  const getPapersResponse = await axios.get(`${apiRoutes.papers}${getQueryParams(userId)}`, {
     headers: {
-      Authorization: `Bearer ${jwtToken}`,
-    },
-    params: {
-      "filters[$or][0][author][id][$eq]": userId,
-      "filters[$or][1][reviewers][id][$eq]": userId,
-      populate: "*",
+        Authorization: `Bearer Bearer ${jwtToken}`,
     },
   });
 
-  return getPapersResponse.data;
+  return getPapersResponse.data.data;
 };
 
 const useGetPapers = (jwtToken: string, userId: number) => {
