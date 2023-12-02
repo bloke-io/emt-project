@@ -39,7 +39,7 @@ export const AuthenticationProvider = ({
 
   const login = async (loginDetails: LoginDetails) => {
     const request = await axios.post(apiRoutes.login, {
-      userId: loginDetails.userId,
+      identifier: loginDetails.userId,
       password: loginDetails.password,
     });
 
@@ -59,7 +59,8 @@ export const AuthenticationProvider = ({
   };
 
   const logout = () => {
-    console.log("implement logout");
+    setUser(null);
+    navigate(RoutePath.Login);
   };
 
   const memoizedValue = useMemo(
