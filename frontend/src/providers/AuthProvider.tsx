@@ -11,6 +11,7 @@ type LoginDetails = {
 type UserDetails = {
   username: string;
   email: string;
+  id: number;
   jwt: string;
 };
 
@@ -49,6 +50,7 @@ export const AuthenticationProvider = ({
       setUser({
         username: user.username,
         email: user.email,
+        id: user.id,
         jwt: jwt,
       });
 
