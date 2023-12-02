@@ -5,5 +5,6 @@ export enum RoutePath {
 }
 
 export enum apiRoutes {
-    login = 'http://localhost:1337/api/auth/local'
+    login = 'http://localhost:1337/api/auth/local',
+    papers = 'http://localhost:1337/api/science-papers'
 }
