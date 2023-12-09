@@ -17,10 +17,16 @@ const Header = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <Box display="flex" flex={1} pl={5} justifyContent="flex-start" alignItems="center">
-      <Text fontSize="20px" color="white">
-        Paper Review System
-      </Text>
+      <Box
+        display="flex"
+        flex={1}
+        pl={5}
+        justifyContent="flex-start"
+        alignItems="center"
+      >
+        <Text fontSize="20px" color="white">
+          Paper Review System
+        </Text>
       </Box>
       <Box
         display="flex"
@@ -28,7 +34,11 @@ const Header = () => {
         justifyContent="flex-end"
         alignItems="center"
       >
-        {user && <Button onClick={handleLogout}>Logout</Button>}
+        {user && (
+          <Button margin={3} onClick={handleLogout}>
+            Logout
+          </Button>
+        )}
       </Box>
     </Box>
   );
