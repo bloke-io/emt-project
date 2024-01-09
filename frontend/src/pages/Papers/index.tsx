@@ -39,9 +39,13 @@ const Papers = () => {
           Upload paper
         </Button>
        </Box>
-      {ownPapers.map((paper: Paper) => <PaperCard {...paper} />)}
+       <Box display="flex" flexDirection="row">
+      {ownPapers.map((paper: Paper) => <PaperCard key={paper.id} {...paper} />)}
+      </Box>
       <Heading mt={4}>Assigned papers:</Heading>
-      {assignedPapers.map((paper: Paper) => <PaperCard {...paper} />)}
+      <Box display="flex" flexDirection="row">
+      {assignedPapers.map((paper: Paper) => <PaperCard key={paper.id} {...paper} />)}
+      </Box>
       {isOpen && <PaperUpload isOpen={isOpen} onClose={onClose} />}
     </Box>
   );

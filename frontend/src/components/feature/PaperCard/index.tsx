@@ -4,7 +4,6 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Heading,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -21,7 +20,6 @@ const PaperCard = ({
   console.log(id, title, author, reviewEndDate, comments, paperPDF);
   return (
     <Card
-      key={id}
       width="250px"
       height="400px"
       margin={3}
@@ -30,7 +28,7 @@ const PaperCard = ({
       background="gray.100"
     >
       <CardHeader>
-        <Heading>{title}</Heading>
+        <Text fontSize={25} fontWeight="bold">{title}</Text>
       </CardHeader>
       <CardBody>
         <Stack mt={4} spacing={3}>
