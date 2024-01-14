@@ -8,7 +8,7 @@ export type Paper = {
     createdAt: Date;
     updatedAt: Date;
     publishedAt: Date;
-    paperPDF: PaperPDF;
+    PaperPDF: PaperPDF;
     author: User;
     reviewers: User[];
     comments: Comment[];

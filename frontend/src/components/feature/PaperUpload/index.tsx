@@ -52,7 +52,7 @@ const PaperUpload = ({ isOpen, onClose }: Props) => {
       title: paperTitle,
       author: user?.id ?? 0,
       reviewers: selectedReviewers,
-      'files.paperPDF': paper,
+      'files.PaperPDF': paper,
       reviewEndDate: new Date(),
     });
 

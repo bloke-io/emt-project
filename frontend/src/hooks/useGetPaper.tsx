@@ -28,7 +28,7 @@ const getPaper = async (
 
 const useGetPaper = (jwtToken: string, paperId: string) => {
   const { data, error } = useSWR(
-    `${apiRoutes.papers}/${paperId}`,
+    jwtToken ? `${apiRoutes.papers}/${paperId}` : null,
     () => getPaper(jwtToken, paperId),
     {
       revalidateOnFocus: false,
