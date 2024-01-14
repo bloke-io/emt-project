@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { RoutePath } from "./constants";
 import Papers from "./pages/Papers";
+import PDFView from "./components/feature/PDFView";
 
 function App() {
   const isUserLoggedIn = true;
@@ -23,6 +24,7 @@ function App() {
       <Route path={RoutePath.Home} element={<Home />}>
         <Route path={RoutePath.Papers} element={<Papers />} />
         <Route path={RoutePath.Login} element={<Login />} />
+        <Route path={`${RoutePath.Details}/:paperId`} element={<PDFView />} />
       </Route>
     </Routes>
   );

@@ -20,6 +20,7 @@ import useGetReviewers from "../../../hooks/useGetReviewers";
 import { apiRoutes } from "../../../constants";
 import { mutate } from "swr";
 import axios from "axios";
+import { createFetchFormData } from "../../../utils/utils";
 
 type Props = {
   isOpen: boolean;
@@ -47,24 +48,20 @@ const PaperUpload = ({ isOpen, onClose }: Props) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const body = createFetchFormData({
+      title: paperTitle,
+      author: user?.id ?? 0,
+      reviewers: selectedReviewers,
+      'files.paperPDF': paper,
+      reviewEndDate: new Date(),
+    });
+
     try {
-      const response = await axios.post(
-        apiRoutes.papers,
-        {
-          data: {
-            title: paperTitle,
-            author: user?.id ?? 0,
-            reviewers: selectedReviewers,
-            paperPDF: paper,
-            reviewEndDate: new Date(),
-          },
+      const response = await axios.post(apiRoutes.papers, body, {
+        headers: {
+          Authorization: `Bearer Bearer ${user?.jwt}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer Bearer ${user?.jwt}`,
-          },
-        }
-      );
+      })
 
       if (response.status === 200) {
         onClose();

@@ -1,7 +1,8 @@
 export enum RoutePath {
     Home = '/',
     Login = '/login',
-    Papers = '/papers'
+    Papers = '/papers',
+    Details = '/details'
 }
 
 export enum apiRoutes {
@@ -9,3 +10,6 @@ export enum apiRoutes {
     papers = 'http://localhost:1337/api/science-papers',
     users = 'http://localhost:1337/api/users'
 }
+
+export const apiUrl = 'http://localhost:1337'
+export const viteUrl = 'http://localhost:5173'

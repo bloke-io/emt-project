@@ -8,6 +8,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Paper } from "../../../types/Paper";
+import { useNavigate } from "react-router-dom";
+import { RoutePath } from "../../../constants";
 
 const PaperCard = ({
   id,
@@ -15,9 +17,13 @@ const PaperCard = ({
   author,
   reviewEndDate,
   comments,
-  paperPDF,
 }: Paper) => {
-  console.log(id, title, author, reviewEndDate, comments, paperPDF);
+  const navigate = useNavigate();
+
+  const redirectToPaperDetails = (paperId: number) => {
+    navigate(`${RoutePath.Details}/${paperId}`);
+  }
+
   return (
     <Card
       width="250px"
@@ -46,7 +52,7 @@ const PaperCard = ({
               backgroundColor: "gray.300"
             }}
             onClick={() => {
-              console.log("handle paper review");
+              redirectToPaperDetails(id);
             }}
           >
             View Paper
