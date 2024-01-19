@@ -49,11 +49,13 @@ const PaperUpload = ({ isOpen, onClose }: Props) => {
     e.preventDefault();
 
     const body = createFetchFormData({
-      title: paperTitle,
-      author: user?.id ?? 0,
-      reviewers: selectedReviewers,
+      data: JSON.stringify({
+        title: paperTitle,
+        author: user?.id ?? 0,
+        reviewers: selectedReviewers,
+        reviewEndDate: new Date(),
+      }),
       'files.PaperPDF': paper,
-      reviewEndDate: new Date(),
     });
 
     try {
