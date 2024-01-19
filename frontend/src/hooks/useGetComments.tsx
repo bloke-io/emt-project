@@ -2,16 +2,16 @@ import useSWR from "swr";
 import axios from "axios";
 
 import { apiRoutes } from "../constants";
-import { Paper } from "../types/Paper";
+import { Comment } from "../types/Comment";
 
 const getQueryParams = (paperId: number) =>
-  `?filters[$or][0][author][id][$eq]=${paperId}&filters[$or][1][reviewers][id][$eq]=${paperId}&populate=*`;
+  `?filters[science_paper][id][$eq]=${paperId}&populate=*`;
 
 const getComments = async (
   jwtToken: string,
   paperId: number
-): Promise<Paper[]> => {
-  const getPapersResponse = await axios.get(
+): Promise<Comment[]> => {
+  const getCommentsResponse = await axios.get(
     `${apiRoutes.comments}${getQueryParams(paperId)}`,
     {
       headers: {
@@ -20,12 +20,12 @@ const getComments = async (
     }
   );
 
-  return getPapersResponse.data.data;
+  return getCommentsResponse.data.data;
 };
 
 const useGetComments = (jwtToken: string, paperId: number) => {
   const { data, error } = useSWR(
-    apiRoutes.papers,
+    apiRoutes.comments,
     () => getComments(jwtToken, paperId),
     {
       revalidateOnFocus: false,

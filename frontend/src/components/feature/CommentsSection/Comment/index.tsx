@@ -1,24 +1,29 @@
-import { Box } from "@chakra-ui/react";
-import useGetComments from "../../../../hooks/useGetComments";
-import { useAuth } from "../../../../providers/ConsumerHooks/useAuth";
+import { Avatar, Box, Text } from "@chakra-ui/react";
+import { Comment } from "../../../../types/Comment";
 
 type Props = {
-    paperId: number;
-}
-
-const Comment = ({ paperId }: Props) => {
-    const { user } = useAuth();
-
-    const { data, error, isLoading } = useGetComments(user?.jwt ?? '',paperId);
-
-
-    if(isLoading) return <Box>Loading...</Box>
-    if(error) return <Box>Error...</Box>
-
-
-    return (<Box>
-        
-    </Box>);
+  comment: Comment;
 };
 
-export default Comment;
+const PaperComment = ({ comment }: Props) => {
+  return (
+    <Box
+      display="flex"
+      flex={1}
+      maxHeight="200px"
+      overflow="auto"
+      flexDirection="column"
+      borderRadius={12}
+      padding={4}
+      backgroundColor="gray.300"
+    >
+      <Box display="flex" alignItems="center" gap={2} mb={2}>
+        <Avatar name={comment.commentAuthor.username} src="/" />
+        <Text fontSize={16}>{comment.commentAuthor.username}</Text>
+      </Box>
+      <Text fontSize={12}>{comment.comment}</Text>
+    </Box>
+  );
+};
+
+export default PaperComment;
